@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import fire from './config/Fire';
 
 class Login extends Component {
@@ -20,16 +19,15 @@ class Login extends Component {
 
     login(e) {
         e.preventDefault();
-        fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
-        }).catch((error) => {
-            console.log(error);
-        });
+        fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     signup(e) {
         e.preventDefault();
-        fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
-        }).then((u) => { console.log(u) })
+        fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
             .catch((error) => {
                 console.log(error);
             })
@@ -49,7 +47,6 @@ class Login extends Component {
                     <button type="submit" onClick={this.login} class="btn btn-primary">Login</button>
                     <button onClick={this.signup} style={{ marginLeft: '25px' }} className="btn btn-success">Signup</button>
                 </form>
-
             </div>
         );
     }
