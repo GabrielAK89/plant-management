@@ -1,0 +1,37 @@
+import React, { Component } from "react";
+import fire from "./config/Fire";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import SideNavbar from "./components/SideNavbar";
+import PlantList from "./features/plants/PlantList";
+
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
+  }
+
+  logout() {
+    fire.auth().signOut();
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Welcome to Home</h1>
+        <button onClick={this.logout}>Logout</button>
+
+        <Router>
+          <SideNavbar />
+
+          <Switch>
+            <Route exact path="/company/plants" component={PlantList} />
+            <Route exact path="/company/plants/:id" component={PlantList} />
+          </Switch>
+        </Router>
+      </div>
+    );
+  }
+}
+
+export default Home;

@@ -1,22 +1,39 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { Component } from "react";
+import fire from "./config/Fire";
+import Login from "./Login";
+import Home from "./Home";
+import "bootstrap/dist/css/bootstrap.css";
 
-import PlantList from "./features/plants/PlantList";
-import SideNavbar from "./components/SideNavbar";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <Router>
-        <SideNavbar />
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {},
+    };
+  }
 
-        <Switch>
-          <Route exact path="/company/plants" component={PlantList} />
-          <Route exact path="/company/plants/:id" component={PlantList} />
-        </Switch>
-      </Router>
-    </div>
-  );
+  componentDidMount() {
+    this.authListener();
+  }
+
+  authListener() {
+    fire.auth().onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        this.setState({ user });
+        localStorage.setItem("user", user.uid);
+      } else {
+        this.setState({ user: null });
+        localStorage.removeItem("user");
+      }
+    });
+  }
+
+  render() {
+    return <div className="App">{this.state.user ? <Home /> : <Login />}</div>;
+  }
 }
 
 export default App;
