@@ -6,7 +6,7 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
+  background-color: #686868;
   overflow-x: hidden;
   padding-top: 20px;
 }
@@ -44,13 +44,13 @@
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 .dropdown-container-show {
   display: block;
-  background-color: #262626;
+  background-color: #707070;
   padding-left: 8px;
 }
 
 .dropdown-container-hidden {
   display: none;
-  background-color: #262626;
+  background-color: #707070;
   padding-left: 8px;
 }
 

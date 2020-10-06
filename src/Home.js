@@ -3,6 +3,7 @@ import fire from "./config/Fire";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import SideNavbar from "./components/SideNavbar";
+import StartupScreen from "./components/StartupScreen";
 import PlantList from "./features/plants/PlantList";
 
 class Home extends Component {
@@ -18,10 +19,10 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h1>Welcome to Home</h1>
         <button onClick={this.logout}>Logout</button>
 
         <Router>
+          <StartupScreen/>
           <SideNavbar />
 
           <Switch>
