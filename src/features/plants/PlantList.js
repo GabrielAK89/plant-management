@@ -118,7 +118,7 @@ export default function PlantList() {
         <tbody>
           {plants.map((item) => (
             <tr key={item.plantId}>
-              <Plant key={item.plantId} plant={item} openModal={openModal} />
+              <Plant key={item.plantId} plant={item} />
             </tr>
           ))}
         </tbody>
