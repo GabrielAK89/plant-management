@@ -1,0 +1,51 @@
+.col-md-4 {
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin: 0 auto;
+
+    border: 2px solid #444;
+    padding: 15px;
+    background-color: #ccc;
+}
+
+html {
+    background-color: #ccc;
+}
+
+.App {
+    background-color: #ccc;
+    position: relative;
+    height: 100vh;
+}
+
+.loginForm {
+    position: relative;
+    height: 540px;
+}
+
+h2 {
+    text-align: center;
+}
+
+img {
+    width: 60%;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.loginButton {
+    display: flex;
+    justify-content: space-around;
+    padding-right: 20px;
+}
+
+.logoutButton {
+    float: right;
+    margin-top: 10px;
+}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import fire from "./config/Fire";
-import Login from "./Login";
-import Home from "./Home";
+import Login from "./features/login/Login";
+import Home from "./features/login/Home";
 import "bootstrap/dist/css/bootstrap.css";
 
 import "./App.css";
