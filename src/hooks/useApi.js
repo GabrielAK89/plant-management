@@ -7,24 +7,24 @@ export default function useApi(endpoint, options) {
   const [error, setError] = useState(null);
   const [fetchOptions, setFetchOptions] = useState(options);
 
-  function mutate(newData) {
+  function mutate(newData, methodName) {
     const newOptions = { ...fetchOptions };
-    newOptions.method = "PUT";
-    /*
-            newData
-            {
-                title: 'test',
-                genre: 'whatever',
-                producer: 'SCEE'
-            }
-            ce avem nevoie:
-            'title=test&genre=whatever&producer=SCEE'
-        */
-    newOptions.body = new URLSearchParams(newData);
-    newOptions.headers = {
-      "Content-type": "application/x-www-form-urlencoded",
-    };
 
+    newOptions.method = methodName;
+    newOptions.headers = {
+      "Content-type": "application/json",
+    };
+    newOptions.body = JSON.stringify(newData);
+    
+    setFetchOptions(newOptions);
+  }
+
+  function del(id) {
+    const newOptions = { ...fetchOptions };
+    newOptions.method = "DELETE";
+    newOptions.headers = {
+      "Content-type": "accept: application/json"
+    }
     setFetchOptions(newOptions);
   }
 
@@ -50,5 +50,5 @@ export default function useApi(endpoint, options) {
     getData();
   }, [endpoint, fetchOptions]);
 
-  return [data, error, mutate];
+  return [data, error, mutate, del];
 }
