@@ -1,20 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export default function useForm(initialValues) {
-  const [values, setValues] = useState(initialValues);
+export default function useForm(presetValues) {
+  const [values, setValues] = useState(presetValues);
+
+  const initialValues = useRef(presetValues);
 
   useEffect(() => {
-    if (initialValues) {
-      setValues(initialValues);
+    if (presetValues) {
+      setValues(presetValues);
     }
-  }, [initialValues]);
+  }, [presetValues]);
 
   function handleInputChange(e) {
     setValues({ ...values, [e.target.name]: e.target.value });
   }
 
   function resetValues() {
-    setValues(initialValues);
+    setValues(initialValues.current);
   }
 
   function bindInput(name) {

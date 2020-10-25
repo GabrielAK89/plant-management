@@ -11,7 +11,7 @@ export default function Plant({ plant, handleEditPlant, handleDeletePlant }) {
 
   return (
     <tr key={plant.plantId}>
-      <td>{plant.plantId}</td>
+      <th scope="row">{plant.plantId}</th>
       <td>{plant.name}</td>
       <td>{plant.address}</td>
       <td>{plant.city}</td>

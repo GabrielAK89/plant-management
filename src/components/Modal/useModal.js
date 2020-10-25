@@ -10,6 +10,7 @@ export default function useModal(props) {
 
   function handleDismiss() {
     setShowModal(false);
+    props?.onDismiss && props.onDismiss();
   }
 
   return {

@@ -9,67 +9,72 @@ import Modal from "../../components/Modal/Modal";
 import DeleteModal from "../../components/Modal/DeleteModal";
 
 export default function PlantList() {
-  //const [endPoint, setEndPoint] = useState("plants");
-  //const [options, setOptions] = useState();
-  const endPoint = "plants";
+  const [endPoint, setEndPoint] = useState("plants");
+  
   const [plants, error, mutate, del] = useApi(endPoint);
-  const [errorMessage, setErrorMessage] = useState("");
-
+console.log(plants);
+  const [modal, setModal] = useState();
+  const [actionType, setActionType] = useState();
+  const { modalProps, openModal } = useModal();
+  
   const [formValues, setFormValues] = useState(null);
   const { values, bindInput, resetValues } = useForm(formValues);
-  
-  const [modal, setModal] = useState();
-  const { modalProps, openModal } = useModal();
-
 
   function handleSubmit() {
     console.log(values);
     if (values !== null) {
-      mutate(values, "POST"); 
+      if (actionType === "ADD") {
+        mutate(values, "POST"); 
+      }
+      else if (actionType === "EDIT") {
+        mutate(values, "PUT"); 
+      }
+      else {
+        console.log("Delete");
+        setEndPoint(`plants/${values.plantId}`)
+        mutate(values.plantId, "DELETE"); 
+        setEndPoint("plants");
+      }
     }
-
       //mutate(values, "PUT"); 
-    
-    setFormValues("");
-    resetValues();
-  }
-
-
-  function handleClearForm() {
-    setFormValues("");
     resetValues();
   }
 
   function handleAddClick() {
     setModal(true)
-    setFormValues("");
-    openModal();
+
+    setActionType("ADD");
     resetValues();
+    openModal();
   }
 
   function handleEditPlantClick(plant) {
     setModal(true)
     console.log("edit", plant);
     setFormValues(plant);
+    setActionType("EDIT");
     openModal();
   }
 
   function handleDeletePlantClick(plant) {
     setModal(false)
     console.log("delete", plant);
+    setActionType("DELETE");
     setFormValues(plant);
     openModal()
   }
 
-    
+   
   async function handleDeleteSubmit() {
 
     const newEndPoint = `https://plantmanagerapi20200929154828.azurewebsites.net/v1/plants/${values.plantId}`;
-    console.log(newEndPoint);
+    //console.log(newEndPoint);
     
     const res = await fetch(newEndPoint, {
       method: 'DELETE',
     }).then()
+
+    window.location.reload();
 
     console.log(res); 
   }
@@ -143,12 +148,17 @@ export default function PlantList() {
         </Modal>
   const deleteModal = <DeleteModal {...modalProps} title="Deleting a plant" onSave={handleDeleteSubmit}>
           </DeleteModal>
-  
-  if (error) {
-    setErrorMessage(error);
-    return <p>{errorMessage}</p>
-  }
 
+  if (error) {
+    return <p>{error}</p>
+  }
+  
+  const capitalizeFirstLetter = (keyName) => {
+    if (typeof keyName != "string") {
+      return "";
+    }
+    return keyName.charAt(0).toUpperCase() + keyName.slice(1);
+  };
   if (!plants) {
     return <h2>Loading</h2>;
   }
@@ -158,12 +168,6 @@ export default function PlantList() {
     return <h2>Loading after submit</h2>
   } 
 
-  const capitalizeFirstLetter = (keyName) => {
-    if (typeof keyName != "string") {
-      return "";
-    }
-    return keyName.charAt(0).toUpperCase() + keyName.slice(1);
-  };
 
   return (
     <div className="main">
@@ -171,14 +175,16 @@ export default function PlantList() {
       <button className="btn btn-primary" onClick={handleAddClick}>
         Add Plant
       </button>
-        {modal ?  editAddModal: deleteModal}
-      <table>
-        <thead>
+
+      {modal ? editAddModal : deleteModal}
+      
+      <table className="table table-hover">
+        <thead className="thead-light">
           <tr>
             {Object.keys(objKeys).map((keyName, i) => (
-              <th key={i}>{capitalizeFirstLetter(keyName)}</th>
+              <th scope="col" key={i}>{capitalizeFirstLetter(keyName)}</th>
             ))}
-            <th>Actions</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
