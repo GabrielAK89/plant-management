@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import SideNavbar from "../../components/SideNavbar";
 import PlantList from "../plants/PlantList";
 import DepartmentList from "../departments/DepartmentList";
+import "./Company.css"
 
 import myImg from "../../images/factory.jpg";
 
@@ -13,9 +14,7 @@ export default function Company() {
             <SideNavbar />
             <Switch>
                 <Route exact path="/company">
-                    <div>
-                        <img src={myImg} alt="plant"></img>
-                    </div>
+                    <img src={myImg} alt="plant" className="startup-img"></img>
                 </Route>
                 <Route exact path="/company" component={SideNavbar} />
                 <Route exact path="/company/plants" component={PlantList} />

@@ -4,10 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import myImg from "../../images/factory.jpg";
 
-import SideNavbar from "../../components/SideNavbar";
 import StartupScreen from "../../components/StartupScreen";
-import PlantList from "../plants/PlantList";
-import DepartmentList from "../departments/DepartmentList";
+
 import Company from "../production/Company"
 
 class Home extends Component {
@@ -36,7 +34,7 @@ class Home extends Component {
             <Route path="/company" component={Company} />
             <Route exact path="/">
               <div>
-                <img src={myImg} alt="plant"></img>
+                <img src={myImg} alt="plant" className="startup-img"></img>
               </div>
             </Route>
           </Switch>
