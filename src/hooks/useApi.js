@@ -7,25 +7,43 @@ export default function useApi(endpoint, options) {
   const [error, setError] = useState(null);
   const [fetchOptions, setFetchOptions] = useState(options);
 
-  function mutate(newData) {
-    const newOptions = { ...fetchOptions };
-    newOptions.method = "PUT";
-    /*
-            newData
-            {
-                title: 'test',
-                genre: 'whatever',
-                producer: 'SCEE'
-            }
-            ce avem nevoie:
-            'title=test&genre=whatever&producer=SCEE'
-        */
-    newOptions.body = new URLSearchParams(newData);
-    newOptions.headers = {
-      "Content-type": "application/x-www-form-urlencoded",
-    };
+  function mutate(newData, methodName) {
+    if (methodName === 'POST') {
+      const newOptions = { ...fetchOptions };
 
-    setFetchOptions(newOptions);
+      newOptions.method = methodName;
+      newOptions.headers = {
+        "Content-type": "application/json",
+      };
+      newOptions.body = JSON.stringify(newData);
+      
+      setFetchOptions(newOptions);
+    }
+
+    if (methodName === 'PUT') {
+      const newOptions = { ...fetchOptions };
+
+      newOptions.method = methodName;
+      newOptions.headers = {
+        "Content-type": "application/json",
+      };
+      newOptions.body = JSON.stringify(newData);
+      
+      setFetchOptions(newOptions);
+    }
+
+    if (methodName === 'DELETE') {
+      
+      const newOptions = { };
+      newOptions.method = methodName;
+      setFetchOptions(newOptions);
+    }
+
+    
+  }
+
+  function del(id) {
+    
   }
 
   useEffect(() => {
@@ -36,13 +54,33 @@ export default function useApi(endpoint, options) {
         if (!res.ok) {
           throw new Error(`${res.status}/${res.statusText}`);
         }
-
-        const data = await res.json();
+        let ret = null;
+        if (res.status !== 204) {
+          ret = await res.json();
+        }
+      
         setError(null);
-        setData(data);
+        if (fetchOptions && fetchOptions.method === 'POST') {
+          //add the new item to state to refresh the list
+          setData((state) => [...state, ret]);
+        } else if (fetchOptions && fetchOptions.method === 'PUT') {
+          // refresh the state
+          const newOptions = { };
+          newOptions.method = "GET";
+          setFetchOptions(newOptions);
+        } else if (fetchOptions && fetchOptions.method === 'DELETE') {
+          // refresh the state
+          const newOptions = {};
+          newOptions.method = "GET";
+          setFetchOptions(newOptions);
+        }
+        else {
+          //dysplay actual values
+          setData(ret);
+        }
       } catch (e) {
         setError(
-          `There was an error with the API: "${e.message}" the endpoint was: "${endpoint}".`
+          `There was an error with the API: "${e.message}" at the endpoint: "${endpoint}".`
         );
       }
     }
@@ -50,5 +88,5 @@ export default function useApi(endpoint, options) {
     getData();
   }, [endpoint, fetchOptions]);
 
-  return [data, error, mutate];
+  return [data, error, mutate, del];
 }

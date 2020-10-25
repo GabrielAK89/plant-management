@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import fire from "../../config/Fire";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import myImg from "../../images/factory.jpg";
+
 import SideNavbar from "../../components/SideNavbar";
 import StartupScreen from "../../components/StartupScreen";
 import PlantList from "../plants/PlantList";
-
+import DepartmentList from "../departments/DepartmentList";
+import Company from "../production/Company"
 
 class Home extends Component {
   constructor(props) {
@@ -20,15 +23,22 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <button className="logoutButton btn btn-secondary btn-lg" onClick={this.logout}>Logout</button>
+        <button
+          className="logoutButton btn btn-secondary btn-lg"
+          onClick={this.logout}
+        >
+          Logout
+        </button>
 
         <Router>
-          <StartupScreen/>
-          <SideNavbar />
-
+          <StartupScreen />
           <Switch>
-            <Route exact path="/company/plants" component={PlantList} />
-            <Route exact path="/company/plants/:id" component={PlantList} />
+            <Route path="/company" component={Company} />
+            <Route exact path="/">
+              <div>
+                <img src={myImg} alt="plant"></img>
+              </div>
+            </Route>
           </Switch>
         </Router>
       </div>
