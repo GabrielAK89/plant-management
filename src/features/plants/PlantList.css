@@ -4,3 +4,19 @@
   font-size: 20px; /* Increased text to enable scrolling */
   padding: 0px 10px;
 }
+
+.startup {
+  display: flex;
+  height: 6rem;
+  flex-direction: column;
+}
+
+.startup > button {
+  position: absolute;
+  right: 13rem;
+  top: 6.5rem;
+}
+
+.addbtn {
+  margin-bottom: 1rem;
+}

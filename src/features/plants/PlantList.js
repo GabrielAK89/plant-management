@@ -172,7 +172,8 @@ console.log(plants);
   return (
     <div className="main">
       <h1>Plants List</h1>
-      <button className="btn btn-primary" onClick={handleAddClick}>
+      
+      <button className="btn btn-primary addbtn" onClick={handleAddClick}>
         Add Plant
       </button>
 
@@ -185,7 +186,9 @@ console.log(plants);
               <th scope="col" key={i}>{capitalizeFirstLetter(keyName)}</th>
             ))}
             <th scope="col">Actions</th>
+            
           </tr>
+
         </thead>
         <tbody>
           {plants.map((item) => (

@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import "./StartupScreen.css";
 
 
-export default function Navbar() {
+export default function Navbar({handleLogout}) {
   return (
     <React.Fragment>
       
@@ -27,7 +27,11 @@ export default function Navbar() {
             Quality
           </NavLink>
           <NavLink to="/maintenance" activeStyle={{ color: "#f1f1f1" }} className="nav-item nav-link ">
-            Maintenance
+              Maintenance
+          </NavLink>
+            
+            <NavLink to="/" activeStyle={{ color: "#f1f1f1" }} className="nav-item nav-link move-left" onClick={handleLogout}>
+            Logout
           </NavLink>
         </div>
         </div>
