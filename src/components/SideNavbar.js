@@ -26,15 +26,7 @@ export default function SideNavbar() {
         <NavLink to="/company/departments" activeStyle={{ color: "#f1f1f1" }}>
           Departments
         </NavLink>
-        <NavLink to="/company/costcenters" activeStyle={{ color: "#f1f1f1" }}>
-          Cost Centers
-        </NavLink>
-        <NavLink to="/company/machines" activeStyle={{ color: "#f1f1f1" }}>
-          Machines
-        </NavLink>
-        <NavLink to="/company/operators" activeStyle={{ color: "#f1f1f1" }}>
-          Operators
-        </NavLink>
+        
       </div>
     </div>
   );

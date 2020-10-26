@@ -88,10 +88,10 @@ export default function DepartmentList() {
 
     const editAddModal = <Modal {...modalProps} title="Adding/Editing a department" onSave={handleSubmit}>
         <div className="form-group row">
-          <label htmlFor="name" className="col-sm-2 col-form-label">
+          <label htmlFor="name" className="col-sm-4 col-form-label">
             Name
           </label>
-          <div className="col-sm-10">
+          <div className="col-sm-8">
             <input
               type="text"
               className="form-control"
@@ -101,23 +101,28 @@ export default function DepartmentList() {
           </div>
         </div>
         <div className="form-group row">
-          <label htmlFor="plantId" className="col-sm-2 col-form-label">
-            Plant
+          <label htmlFor="plantId" className="col-sm-4 col-form-label">
+            Plant Id
           </label>
-            <div className="col-sm-10">
-                <select id="plantId" onChange={(e)=> {bindInput(e.value)}}>
+            <div className="col-sm-8">
+                {/* <select id="plantId" onChange={(e)=> {bindInput(e.value)}}>
                     {plants !=null && plants.map(item => (
                         <option key={item.plantId} value={item.plantId}>{item.name}</option>
                    ))}
-               </select>
-            
+               </select> */}
+            <input
+              type="number"
+              className="form-control"
+              id="plantId"
+              {...bindInput("plantId")}
+            />
           </div>
         </div>
         <div className="form-group row">
-          <label htmlFor="description" className="col-sm-2 col-form-label">
+          <label htmlFor="description" className="col-sm-4 col-form-label">
             Description
           </label>
-          <div className="col-sm-10">
+          <div className="col-sm-8">
             <input
               type="text"
               className="form-control"
@@ -154,7 +159,7 @@ export default function DepartmentList() {
     return (
         <div className="main">
       <h1>Department List</h1>
-      <button className="btn btn-primary" onClick={handleAddClick}>
+      <button className="btn btn-primary addbtn" onClick={handleAddClick}>
         Add Department
       </button>
 
